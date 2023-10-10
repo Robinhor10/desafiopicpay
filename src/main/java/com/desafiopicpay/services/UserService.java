@@ -1,10 +1,13 @@
 package com.desafiopicpay.services;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.desafiopicpay.domain.user.User;
 import com.desafiopicpay.domain.user.UserType;
+import com.desafiopicpay.dtos.UserDto;
 import com.desafiopicpay.repositories.UserRepository;
 
 @Service
@@ -29,7 +32,19 @@ public class UserService {
         return this.repository.findUserById(id).orElseThrow(() -> new Exception("Usuario nao encontrado"));
     }
 
+    public User createUser(UserDto data){
+        User newUser = new User(data);
+        this.SaveUser(newUser);
+        return newUser;
+    }
+
+    public List<User> getAllUsers(){
+        return this.repository.findAll();
+    }
+
     public void SaveUser(User user) {
         this.repository.save(user);
     }
+
+
 }

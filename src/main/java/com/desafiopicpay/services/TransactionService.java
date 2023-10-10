@@ -2,9 +2,11 @@ package com.desafiopicpay.services;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Map;
 
-import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -55,11 +57,11 @@ public class TransactionService {
 
     public boolean authorizeTransaction(User sender, BigDecimal value){
 
-      ResponseEntity<Map> authorizationResponse  = restTemplate.getForEntity("https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6", Map.class);
-    
+      ResponseEntity<Map> authorizationResponse  = restTemplate.getForEntity("https://run.mocky.io/v3/0eb27256-7753-4bd5-af98-f5bdf0fdb238", Map.class);
+
       if (authorizationResponse.getStatusCode() == HttpStatus.OK){
-        String message = (String) authorizationResponse.getBody().get("message");
-        return "Autorizado".equalsIgnoreCase(message);
+          String message = (String)authorizationResponse.getBody().get("message");
+          return "Autorizado".equalsIgnoreCase(message);
       } else return false;
     
     }
